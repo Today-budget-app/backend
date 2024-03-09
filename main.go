@@ -16,6 +16,11 @@ func main() {
 
 	r.POST("/signup", controllers.UserCreate)
 	r.POST("/signin", controllers.UserFetch)
+	r.POST("/transactions", controllers.TransactionCreate)
+	r.GET("/transactions", controllers.TransactionFetch)
+	r.GET("/transactions/PLACEHOLDER")
+	r.DELETE("/transactions/PLACEHOLDER")
+	r.PUT("/transactions/PLACEHOLDER")
 
 	r.Run()
 }
