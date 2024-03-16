@@ -11,5 +11,6 @@ func init() {
 }
 
 func main() {
-	initializers.DB.AutoMigrate(&models.User{}) //go run migrate/migrate.go
+	initializers.DB.AutoMigrate(&models.User{})        //go run migrate/migrate.go
+	initializers.DB.AutoMigrate(&models.Transaction{}) //go run migrate/migrate.go
 }
