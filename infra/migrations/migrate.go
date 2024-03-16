@@ -1,8 +1,8 @@
 package main
 
 import (
-	"github.com/Today-budget-app/backend/initializers"
-	"github.com/Today-budget-app/backend/models"
+	"github.com/Today-budget-app/backend/domain/models"
+	"github.com/Today-budget-app/backend/infra/initializers"
 )
 
 func init() {

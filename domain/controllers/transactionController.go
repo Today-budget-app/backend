@@ -3,8 +3,8 @@ package controllers
 import (
 	"time"
 
-	"github.com/Today-budget-app/backend/initializers"
-	"github.com/Today-budget-app/backend/models"
+	"github.com/Today-budget-app/backend/domain/models"
+	"github.com/Today-budget-app/backend/infra/initializers"
 	"github.com/gin-gonic/gin"
 )
 
@@ -16,10 +16,6 @@ type transCtrl struct {
 }
 
 func TransactionCreate(c *gin.Context) {
-	//get date from request body
-	//create user
-	//return it
-	//GORM create guide
 
 	var transac transCtrl
 
@@ -40,12 +36,11 @@ func TransactionCreate(c *gin.Context) {
 }
 
 func TransactionFetch(c *gin.Context) {
-	//get user
+
 	var transactions []models.Transaction
 
 	initializers.DB.Find(&transactions)
 
-	//respond
 	c.JSON(200, gin.H{
 		"transaction": transactions,
 	})

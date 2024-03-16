@@ -1,16 +1,12 @@
 package controllers
 
 import (
-	"github.com/Today-budget-app/backend/initializers"
-	"github.com/Today-budget-app/backend/models"
+	"github.com/Today-budget-app/backend/domain/models"
+	"github.com/Today-budget-app/backend/infra/initializers"
 	"github.com/gin-gonic/gin"
 )
 
 func UserCreate(c *gin.Context) {
-	//get date from request body
-	//create user
-	//return it
-	//GORM create guide
 
 	var content struct {
 		Username string
@@ -34,7 +30,7 @@ func UserCreate(c *gin.Context) {
 }
 
 func UserFetch(c *gin.Context) {
-	//get user
+
 	var content struct {
 		Username string
 		Email    string
@@ -49,7 +45,6 @@ func UserFetch(c *gin.Context) {
 		return
 	}
 
-	//respond
 	c.JSON(200, gin.H{
 		"user": user,
 	})

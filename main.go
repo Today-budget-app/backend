@@ -1,8 +1,8 @@
 package main
 
 import (
-	"github.com/Today-budget-app/backend/controllers"
-	"github.com/Today-budget-app/backend/initializers"
+	"github.com/Today-budget-app/backend/domain/controllers"
+	"github.com/Today-budget-app/backend/infra/initializers"
 	"github.com/gin-gonic/gin"
 )
 
