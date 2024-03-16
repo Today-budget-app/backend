@@ -1,10 +1,11 @@
 package controllers
 
 import (
+	"log"
 	"time"
 
+	"github.com/Today-budget-app/backend/domain/managers"
 	"github.com/Today-budget-app/backend/domain/models"
-	"github.com/Today-budget-app/backend/infra/initializers"
 	"github.com/gin-gonic/gin"
 )
 
@@ -15,33 +16,39 @@ type transCtrl struct {
 	Description string
 }
 
-func TransactionCreate(c *gin.Context) {
+type TransactionsController struct {
+	TransactionsManager managers.TransactionsManager
+}
 
-	var transac transCtrl
+func NewTransactionsController(transactionsManager *managers.TransactionsManager) *TransactionsController {
+	return &TransactionsController{TransactionsManager: *transactionsManager}
+}
 
-	c.Bind(&transac)
+func (controller *TransactionsController) Create(c *gin.Context) {
+	var transactionData models.Transaction
+	err := c.BindJSON(&transactionData)
+	if err != nil {
+		log.Printf("Error binding transaction data: %v", err)
+	}
 
-	transaction := models.Transaction{Amount: transac.Amount, TranType: transac.TranType, TransactionDate: transac.TranDate, Description: transac.Description}
-
-	result := initializers.DB.Create(&transaction)
-
-	if result.Error != nil {
-		c.Status(400)
+	transaction, err := controller.TransactionsManager.Create(&transactionData)
+	if err != nil {
+		log.Printf("Error creating transaction: %v", err)
+		c.JSON(400, gin.H{"error": "Error creating transaction"})
 		return
 	}
 
-	c.JSON(200, gin.H{
-		"transaction": transaction,
-	})
+	c.JSON(200, gin.H{"transaction": transaction})
 }
 
-func TransactionFetch(c *gin.Context) {
-
-	var transactions []models.Transaction
-
-	initializers.DB.Find(&transactions)
-
+func (controller *TransactionsController) List(c *gin.Context) {
+	transactions, err := controller.TransactionsManager.List()
+	if err != nil {
+		log.Printf("Error listing transactions: %v", err)
+		c.JSON(400, gin.H{"error": "Error listing transactions"})
+		return
+	}
 	c.JSON(200, gin.H{
-		"transaction": transactions,
+		"transactions": transactions,
 	})
 }
